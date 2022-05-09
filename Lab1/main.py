@@ -21,6 +21,7 @@ r2 = partial(round, ndigits=2)
 
 
 def get_frequency(sample):
+    """Takes sample, returns frequencies of intervals"""
     frequency = {}
     a = min(sample)
     i = 0
