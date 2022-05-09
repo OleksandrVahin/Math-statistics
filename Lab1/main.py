@@ -20,6 +20,17 @@ def sturges_rule(sample):
 r2 = partial(round, ndigits=2)
 
 
+def get_frequency(sample):
+    frequency = {}
+    a = min(sample)
+    i = 0
+    for n in realization:
+        if not a + i * d <= n < a + (i + 1) * d:
+            i += 1
+        frequency[i] = frequency.get(i, 0) + 1
+    return frequency
+
+
 # Extracting initial data
 realization = extract_data()
 print("Realization:\n", *realization)
@@ -35,12 +46,14 @@ d = r2(r / k)
 print(f"Number of bins: {k}\n"
       f"Range of realization: {r}\n"
       f"Width of bin: {d}")
-interval_series = {}
-a = realization[0]
-i = 0
-for n in realization:
-    if not a + i * d <= n < a + (i + 1) * d:
-        i += 1
-    interval_series[(a + i * d, a + (i + 1) * d)] = interval_series.get((a + i * d, a + (i + 1) * d), 0) + 1
+
+# Calculating frequencies for intervals
+frequency = get_frequency(realization)
+a = min(realization)
+print("Frequencies:")
+for x in map(lambda x: print(f'[{r2(a + x[0] * d)};{r2(a + (x[0] + 1) * d)}): {x[1]}'), frequency.items()):
+    pass
+
+# Drawing histogram of sample
 plt.hist(realization, k)
 plt.show()
