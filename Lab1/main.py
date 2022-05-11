@@ -32,6 +32,20 @@ def get_frequency(sample):
     return frequency
 
 
+def get_heights_of_bins():
+    """Returns numbers of interval and their bin heights on histogram"""
+    heights = []
+    for i in frequency:
+        heights.append((i, round(frequency[i] / 100 / d, 3)))
+    return heights
+
+
+def print_interval_values(values):
+    """Print interval and its value"""
+    for x in map(lambda x: print(f'[{r2(a + x[0] * d)};{r2(a + (x[0] + 1) * d)}): {x[1]}'), values):
+        pass
+
+
 # Extracting initial data
 realization = extract_data()
 print("Realization:\n", *realization)
@@ -55,8 +69,12 @@ print(f"Number of bins: {k}\n"
 frequency = get_frequency(realization)
 a = min(realization)
 print("Frequencies:")
-for x in map(lambda x: print(f'[{r2(a + x[0] * d)};{r2(a + (x[0] + 1) * d)}): {x[1]}'), frequency.items()):
-    pass
+print_interval_values(frequency.items())
+
+# Calculating heights of bins on histogram
+heights = get_heights_of_bins()
+print("Heights of bins:")
+print_interval_values(heights)
 
 # Drawing histogram of sample
 plt.hist(realization, k)
