@@ -35,6 +35,7 @@ def get_frequency(sample):
 # Extracting initial data
 realization = extract_data()
 print("Realization:\n", *realization)
+print("Number of unique values:", len(set(realization)))
 
 # Sorting sample
 realization.sort()
@@ -42,6 +43,8 @@ print("Sorted realization:\n", *realization)
 
 # Calculating some properties
 k = sturges_rule(realization)
+# 7 is too small, because histograms aren't beautiful let's take 8
+k = 8
 r = realization[-1] - realization[0]
 d = r2(r / k)
 print(f"Number of bins: {k}\n"
