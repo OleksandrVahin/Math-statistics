@@ -46,6 +46,17 @@ def print_interval_values(values):
         pass
 
 
+def mean(sample):
+    """Returns mean of the sample"""
+    return sum(sample)/len(sample)
+
+
+def adjusted_variance(sample):
+    """Returns adjusted variance of the sample"""
+    avg = mean(sample)
+    return sum((x - avg) ** 2 for x in sample)/(len(sample) - 1)
+
+
 # Extracting initial data
 realization = extract_data()
 print("Realization:\n", *realization)
@@ -79,3 +90,9 @@ print_interval_values(heights)
 # Drawing histogram of sample
 plt.hist(realization, k)
 plt.show()
+
+# Calculation of mean and variance
+m = mean(realization)
+var = adjusted_variance(realization)
+print(f"\nMean of sample: {m}")
+print(f"Variance of sample: {var}")
