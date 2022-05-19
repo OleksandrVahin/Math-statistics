@@ -57,6 +57,13 @@ def adjusted_variance(sample):
     return sum((x - avg) ** 2 for x in sample)/(len(sample) - 1)
 
 
+def asymmetry(sample):
+    """Returns asymmetry of sample"""
+    avg = mean(sample)
+    v = adjusted_variance(sample)
+    return sum((x - avg) ** 3 for x in sample) / len(sample) / v ** 1.5
+
+
 # Extracting initial data
 realization = extract_data()
 print("Realization:\n", *realization)
@@ -91,8 +98,10 @@ print_interval_values(heights)
 plt.hist(realization, k)
 plt.show()
 
-# Calculation of mean and variance
+# Calculation of mean, variance, asymmetry
 m = mean(realization)
 var = adjusted_variance(realization)
+asym = asymmetry(realization)
 print(f"\nMean of sample: {m}")
 print(f"Variance of sample: {var}")
+print(f"Asymmetry of sample: {asym}")
